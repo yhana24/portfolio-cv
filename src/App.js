@@ -1,6 +1,6 @@
 import React from "react";
 import PortfolioNavbar from "./components/Navbar";
-import PortfolioCarousel from "./components/Carousel";
+import PortfolioCarousel from "./components/carousel";
 import CertificateCarousel from "./components/Certificate";  // Corrected import
 import PortfolioModal from "./components/Modal";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -101,8 +101,8 @@ const App = () => {
       {/* Contact Section */}
       <section id="contact" style={{ minHeight: "100vh", backgroundColor: "#c0c0c0" }}>
         <div className="container text-center mt-5 pt-5">
-          <h2>Contact Me</h2>
-          <p>If you'd like to get in touch, feel free to reach out!</p>
+          <h2>Send Message</h2>
+          <p>Under Construction!</p>
         </div>
       </section>
     </div>

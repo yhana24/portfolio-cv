@@ -1,8 +1,12 @@
 /* Navbar Styling */
 .navbar {
   background-color: #333;
-  padding: 0px 20px;
+  padding: 10px 20px;
   transition: background-color 0.3s ease-in-out;
+  position: fixed; 
+  top: 0;
+  width: 100%;
+  z-index: 10; 
 }
 
 .navbar .navbar-brand {
@@ -18,7 +22,7 @@
 }
 
 .navbar .nav-link:hover {
-  color: #ff6347; /* Add a hover color */
+  color: #ff6347;
 }
 
 .navbar .nav-link {
@@ -34,7 +38,7 @@
   .navbar {
     padding: 5px 10px;
   }
-  
+
   .navbar .navbar-brand {
     font-size: 1.5rem;
   }
@@ -42,4 +46,9 @@
   .navbar .nav-link {
     font-size: 1rem;
   }
+}
+
+/* Body padding to prevent overlap */
+body {
+  padding-top: 70px; /* Matches the navbar height */
 }

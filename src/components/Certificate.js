@@ -16,7 +16,7 @@ const CertificateCarousel = () => {
         />
         <Carousel.Caption>
           <h3>Certificate 1</h3>
-          <p>Short description of the certificate.</p>
+          <p>Networking Basics</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -28,7 +28,7 @@ const CertificateCarousel = () => {
         />
         <Carousel.Caption>
           <h3>Certificate 2</h3>
-          <p>Short description of the certificate.</p>
+          <p>Networking Devices and Initial Configuration</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

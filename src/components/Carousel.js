@@ -15,8 +15,8 @@ const PortfolioCarousel = () => {
           style={{ height: '60vh', objectFit: 'cover' }}
         />
         <Carousel.Caption>
-          <h3>Project 1</h3>
-          <p>Short description of the project.</p>
+          <h3>Website</h3>
+          <p>A Website related to rescuing dogs and adopting.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -27,8 +27,8 @@ const PortfolioCarousel = () => {
           style={{ height: '60vh', objectFit: 'cover' }}
         />
         <Carousel.Caption>
-          <h3>Project 2</h3>
-          <p>Short description of the project.</p>
+          <h3>Budget Tracker</h3>
+          <p>A project that will helps you tracking your Income and Expenditure in an enhanced Dashboard.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

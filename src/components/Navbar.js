@@ -18,7 +18,7 @@ const PortfolioNavbar = () => {
           </Nav.Link>
           <Nav.Link>
             <Link to="about" smooth={true} duration={500}>
-              <FaUserAlt /> About
+              <FaUserAlt /> Certifications
             </Link>
           </Nav.Link>
           <Nav.Link>
@@ -28,7 +28,7 @@ const PortfolioNavbar = () => {
           </Nav.Link>
           <Nav.Link>
             <Link to="contact" smooth={true} duration={500}>
-              <FaEnvelope /> Contact
+              <FaEnvelope /> Contact Me
             </Link>
           </Nav.Link>
         </Nav>
