@@ -5,12 +5,13 @@ import project2Image from "../assets/images/project2.JPG";
 
 const PortfolioCarousel = () => {
   return (
-    <Carousel>
+    <Carousel fade>
       <Carousel.Item>
         <img
           className="d-block w-100"
           src={project1Image}
           alt="First slide"
+          style={{ height: '60vh', objectFit: 'cover' }}
         />
         <Carousel.Caption>
           <h3>Project 1</h3>
@@ -22,6 +23,7 @@ const PortfolioCarousel = () => {
           className="d-block w-100"
           src={project2Image}
           alt="Second slide"
+          style={{ height: '60vh', objectFit: 'cover' }}
         />
         <Carousel.Caption>
           <h3>Project 2</h3>

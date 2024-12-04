@@ -1,21 +1,39 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { FaHome, FaUserAlt, FaFolder, FaEnvelope } from "react-icons/fa";
+import { Navbar as BootstrapNavbar, Nav } from "react-bootstrap";
+import { FaHome, FaUserAlt, FaFolder, FaEnvelope } from "react-icons/fa"; // React Icons
+import { Link } from 'react-scroll'; // Import Link from react-scroll for smooth scrolling
+import '../Navbar.css'; // Ensure this path is correct
 
 const PortfolioNavbar = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
-      <Navbar.Brand href="#">My Portfolio</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link href="#home"><FaHome /> Home</Nav.Link>
-          <Nav.Link href="#about"><FaUserAlt /> About</Nav.Link>
-          <Nav.Link href="#projects"><FaFolder /> Projects</Nav.Link>
-          <Nav.Link href="#contact"><FaEnvelope /> Contact</Nav.Link>
+    <BootstrapNavbar expand="lg" fixed="top" className="navbar">
+      <BootstrapNavbar.Brand href="#home">My Portfolio</BootstrapNavbar.Brand>
+      <BootstrapNavbar.Toggle aria-controls="navbar-nav" />
+      <BootstrapNavbar.Collapse id="navbar-nav">
+        <Nav className="ml-auto">
+          <Nav.Link>
+            <Link to="home" smooth={true} duration={500}>
+              <FaHome /> Home
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="about" smooth={true} duration={500}>
+              <FaUserAlt /> About
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="projects" smooth={true} duration={500}>
+              <FaFolder /> Projects
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="contact" smooth={true} duration={500}>
+              <FaEnvelope /> Contact
+            </Link>
+          </Nav.Link>
         </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+      </BootstrapNavbar.Collapse>
+    </BootstrapNavbar>
   );
 };
 

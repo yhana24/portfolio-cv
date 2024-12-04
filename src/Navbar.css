@@ -1,0 +1,45 @@
+/* Navbar Styling */
+.navbar {
+  background-color: #333;
+  padding: 0px 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar .navbar-brand {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.navbar .nav-link {
+  color: #fff;
+  margin-left: 15px;
+  font-size: 1.1rem;
+}
+
+.navbar .nav-link:hover {
+  color: #ff6347; /* Add a hover color */
+}
+
+.navbar .nav-link {
+  cursor: pointer;
+}
+
+.navbar-toggler {
+  background-color: #fff;
+}
+
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 5px 10px;
+  }
+  
+  .navbar .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .navbar .nav-link {
+    font-size: 1rem;
+  }
+}
