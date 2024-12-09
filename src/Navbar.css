@@ -1,36 +1,52 @@
 /* Navbar Styling */
 .navbar {
   background-color: #333;
-  padding: 10px 20px;
-  transition: background-color 0.3s ease-in-out;
-  position: fixed; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  position: fixed;
   top: 0;
   width: 100%;
-  z-index: 10; 
+  z-index: 10;
+  padding: 10px 20px;
 }
 
 .navbar .navbar-brand {
   color: #fff;
   font-size: 1.8rem;
   font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar .navbar-brand:hover {
+  color: #61dafb;
 }
 
 .navbar .nav-link {
-  color: #fff;
+  color: white;
   margin-left: 15px;
   font-size: 1.1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .navbar .nav-link:hover {
-  color: #ff6347;
+  color: #61dafb;
+  transform: scale(1.1);
 }
 
-.navbar .nav-link {
-  cursor: pointer;
+.navbar .nav-link.active {
+  border-bottom: 2px solid #61dafb;
 }
 
 .navbar-toggler {
   background-color: #fff;
+  border: none;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+.navbar-toggler:hover {
+  transform: rotate(90deg);
 }
 
 /* Add responsiveness for smaller screens */

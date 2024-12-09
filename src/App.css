@@ -1,17 +1,118 @@
-/* App.css */
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  padding: 10px 0;
+  color: #222;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #333;
+  color: white;
+}
+
+body.dark-mode .navbar {
+  background-color: #444;
+  color: white;
+}
+
+body.dark-mode a {
+  color: #ff6347; /* Highlight links in dark mode */
+}
+
+body.dark-mode a:hover {
+  color: #ffa07a;
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
+  color: #ddd;
+}
+
+/* App Header */
 .App-header {
   background-color: #f0f0f0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start; /* Left-align */
+  justify-content: flex-start; /* Align at the top */
   font-size: calc(10px + 2vmin);
-  color: #333;
   padding: 20px;
+  text-align: left; /* Ensure text aligns to the left */
 }
 
-/* Make links smooth scroll */
+/* Sections */
+.section {
+  padding: 60px 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align section content to the top */
+  align-items: flex-start; /* Align items to the left */
+  text-align: left; /* Text aligned to the left */
+  max-width: 960px; /* Optional: limit the width of the section */
+}
+
+.section .container {
+  margin: 0; /* Remove any center-aligning margin */
+  padding-left: 0; /* Align content to the left */
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Navbar */
+.navbar {
+  font-size: 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar .navbar-brand {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.navbar .nav-link {
+  font-size: 1rem;
+  color: #555;
+}
+
+.navbar .nav-link:hover {
+  color: #007bff;
+}
+
+/* Carousel */
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: cover;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
 }
@@ -28,6 +129,16 @@ html {
 
   .App-header {
     padding: 10px;
+    font-size: calc(8px + 2vmin);
+  }
+
+  .section {
+    padding: 40px 15px;
+  }
+
+  .section .container {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -38,5 +149,18 @@ html {
 
   .navbar .nav-link {
     font-size: 0.9rem;
+  }
+
+  .carousel-item img {
+    height: 40vh;
+  }
+
+  .section {
+    padding: 30px 10px;
+  }
+
+  .section .container {
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
