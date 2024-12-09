@@ -17,6 +17,7 @@ const ContactForm = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,17 +41,40 @@ const ContactForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      setIsSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-      setTimeout(() => setIsSubmitted(false), 5000); // Hide success message after 5 seconds
+      setIsLoading(true);
+      try {
+        const webhookUrl = "https://hook.eu2.make.com/yignhjapxpov52w9781u4z98o2na4p0h"; // Replace with the Make webhook URL
+
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        setIsLoading(false);
+
+        if (!response.ok) {
+          throw new Error("Failed to send message");
+        }
+
+        setIsSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+
+        setTimeout(() => setIsSubmitted(false), 5000); // Hide success message after 5 seconds
+      } catch (error) {
+        setIsLoading(false);
+        console.error("Error sending message:", error);
+      }
     }
   };
 
@@ -127,9 +151,10 @@ const ContactForm = () => {
 
         <button
           type="submit"
-          className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full p-3 ${isLoading ? "bg-gray-500" : "bg-blue-500"} text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          disabled={isLoading}
         >
-          Send Message
+          {isLoading ? "Sending..." : "Send Message"}
         </button>
       </form>
     </div>
