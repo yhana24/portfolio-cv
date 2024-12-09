@@ -7,22 +7,22 @@ import "./Projects.css";
 
 const projects = [
   {
-    title: "Advanced Budget Tracker",
-    description: "An advanced dashboard for tracking income and expenditures.",
-    image: project1Image,
-    link: "https://budget-tracker-2-vert.vercel.app/",
-    fullDescription: "This comprehensive dog rescue website serves as a platform for connecting rescued dogs with potential adopters. It features a user-friendly interface showcasing available dogs, their stories, and adoption procedures. The site also includes resources for dog care, a donation system, and a volunteer sign-up process.",
-    technologies: ["React", "Node.js", "MongoDB", "Express"],
-    completionDate: "November 2024",
-  },
-  {
     title: "Dog Rescue Website",
     description: "A website dedicated to rescuing dogs and facilitating adoptions.",
-    image: project2Image,
+    image: project1Image,
     link: "https://doggo-website-sooty.vercel.app/",
-    fullDescription: "The Budget Tracker is a sophisticated financial management tool designed to help users monitor their income and expenses effectively. It offers features such as expense categorization, income tracking, budget setting, and visual representations of financial data through charts and graphs. The application also provides insights and suggestions for better financial management.",
-    technologies: ["Vue.js", "Firebase", "Chart.js", "Vuex"],
+    fullDescription: "This comprehensive dog rescue website serves as a platform for connecting rescued dogs with potential adopters. It features a user-friendly interface showcasing available dogs, their stories, and adoption procedures. The site also includes resources for dog care, a donation system, and a volunteer sign-up process.",
+    technologies: ["React.js", "Firebase", "Chart.js", "Node.js"],
     completionDate: "October 2024",
+  },
+  {
+    title: "Advanced Budget Tracker",
+    description: "An advanced dashboard for tracking income and expenditures.",
+    image: project2Image,
+    link: "https://budget-tracker-2-vert.vercel.app/",
+    fullDescription: "The Budget Tracker is a sophisticated financial management tool designed to help users monitor their income and expenses effectively. It offers features such as expense categorization, income tracking, budget setting, and visual representations of financial data through charts and graphs. The application also provides insights and suggestions for better financial management.",
+    technologies: ["React", "Node.js"],
+    completionDate: "November 2024",
   },
 ];
 
