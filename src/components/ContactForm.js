@@ -46,7 +46,7 @@ const ContactForm = () => {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        const webhookUrl = "https://hook.eu2.make.com/yignhjapxpov52w9781u4z98o2na4p0h"; // Replace with the Make webhook URL
+        const webhookUrl = "https://hook.eu2.make.com/9oqtpcwlu8jw9lr666b2ti8umfqy8vbb"; // Replace with the Make webhook URL
 
         const response = await fetch(webhookUrl, {
           method: "POST",
