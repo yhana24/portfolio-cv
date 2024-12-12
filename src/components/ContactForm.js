@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import './ContactForm.css';
+import styled from "styled-components";
+import "./ContactForm.css";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ const ContactForm = () => {
     email: "",
     subject: "",
     message: "",
+    agreedToPolicy: false, // New state for checkbox
   });
 
   const [errors, setErrors] = useState({
@@ -14,16 +16,17 @@ const ContactForm = () => {
     email: "",
     subject: "",
     message: "",
+    agreedToPolicy: "", // Error state for checkbox
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -37,6 +40,7 @@ const ContactForm = () => {
     }
     if (!formData.subject) newErrors.subject = "Subject is required.";
     if (!formData.message) newErrors.message = "Message is required.";
+    if (!formData.agreedToPolicy) newErrors.agreedToPolicy = "You must agree to the Privacy Policy and Disclaimer.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -46,7 +50,7 @@ const ContactForm = () => {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        const webhookUrl = "https://hook.eu2.make.com/9oqtpcwlu8jw9lr666b2ti8umfqy8vbb"; // Replace with the Make webhook URL
+        const webhookUrl = "https://hook.eu2.make.com/pmmfzwtpulipkoo75liehns2dmtltowt";
 
         const response = await fetch(webhookUrl, {
           method: "POST",
@@ -68,9 +72,12 @@ const ContactForm = () => {
           email: "",
           subject: "",
           message: "",
+          agreedToPolicy: false, // Reset checkbox
         });
 
-        setTimeout(() => setIsSubmitted(false), 5000); // Hide success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
       } catch (error) {
         setIsLoading(false);
         console.error("Error sending message:", error);
@@ -79,86 +86,169 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form-container max-w-lg mx-auto p-5 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-5 text-center">Send your message</h2>
+    <div className="contact-form-container">
+      <h2 className="form-heading">Send me a Message</h2>
 
-      {isSubmitted && (
-        <div className="bg-green-200 p-3 text-green-700 rounded-lg mb-5">
-          Your message has been sent successfully!
-        </div>
-      )}
+      <div className={`toast success-toast ${isSubmitted ? "show" : ""}`}>
+        ✅ Your message has been sent successfully!
+      </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-lg font-semibold mb-2">
-            Name
-          </label>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+          {errors.name && <p className="error-message">{errors.name}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-lg font-semibold mb-2">
-            Email
-          </label>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="subject" className="block text-lg font-semibold mb-2">
-            Subject
-          </label>
+        <div className="form-group">
+          <label htmlFor="subject">Subject</label>
           <input
             type="text"
             id="subject"
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
+          {errors.subject && <p className="error-message">{errors.subject}</p>}
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-lg font-semibold mb-2">
-            Message
-          </label>
+        <div className="form-group">
+          <label htmlFor="message">Message</label>
           <textarea
             id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            rows="5"
           />
-          {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+          {errors.message && <p className="error-message">{errors.message}</p>}
         </div>
 
-        <button
-          type="submit"
-          className={`w-full p-3 ${isLoading ? "bg-gray-500" : "bg-blue-500"} text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-          disabled={isLoading}
-        >
-          {isLoading ? "Sending..." : "Send Message"}
-        </button>
+        <div className="form-group">
+          <label className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              name="agreedToPolicy"
+              checked={formData.agreedToPolicy}
+              onChange={handleChange}
+              className="mr-2"
+            />
+            <span>
+              I agree to the{" "}
+              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                <em>Privacy Policy</em>
+              </a>{" "}
+              and{" "}
+              <a href="/disclaimer" target="_blank" rel="noopener noreferrer">
+                <em>Disclaimer</em>
+              </a>
+            </span>
+          </label>
+          {errors.agreedToPolicy && <p className="error-message">{errors.agreedToPolicy}</p>}
+        </div>
+
+        <StyledWrapper>
+          <button type="submit" disabled={isLoading}>
+            <div className="svg-wrapper-1">
+              <div className="svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  height={24}
+                >
+                  <path fill="none" d="M0 0h24v24H0z" />
+                  <path
+                    fill="currentColor"
+                    d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <span>{isLoading ? "Sending..." : "Send"}</span>
+          </button>
+        </StyledWrapper>
       </form>
     </div>
   );
 };
+
+const StyledWrapper = styled.div`
+  button {
+    font-family: inherit;
+    font-size: 20px;
+    background: royalblue;
+    color: white;
+    padding: 0.7em 1em;
+    padding-left: 0.9em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+
+  button span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+  }
+
+  button svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+  }
+
+  button:hover svg {
+    transform: translateX(1.2em) rotate(45deg) scale(1.1);
+  }
+
+  button:hover span {
+    transform: translateX(5em);
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  @keyframes fly-1 {
+    from {
+      transform: translateY(0.1em);
+    }
+
+    to {
+      transform: translateY(-0.1em);
+    }
+  }
+`;
 
 export default ContactForm;

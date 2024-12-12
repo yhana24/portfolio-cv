@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Card, Button, Modal, Carousel } from "react-bootstrap";
+import { Card, Button, Modal, Carousel, Form } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { FaInstagram, FaTiktok, FaFacebook, FaLinkedin } from "react-icons/fa"; // Import icons
 import cert1Image from "../assets/images/cert1.jpg";
 import cert2Image from "../assets/images/cert2.jpg";
 import "./Projects.css";
@@ -27,6 +28,7 @@ const certificates = [
 ];
 
 const CertificateCarousel = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [showImageModal, setShowImageModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
@@ -46,10 +48,47 @@ const CertificateCarousel = () => {
     setActiveIndex(selectedIndex);
   };
 
+  const filteredCertificates = certificates.filter((certificate) =>
+    certificate.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // shareOnSocialMedia function
+  const shareOnSocialMedia = (platform, certificateLink) => {
+    let shareUrl = "";
+    switch (platform) {
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${certificateLink}`;
+        break;
+      case "instagram":
+        shareUrl = `https://www.instagram.com/sharer/sharer.php?u=${certificateLink}`;
+        break;
+      case "tiktok":
+        shareUrl = `https://www.tiktok.com/share?url=${certificateLink}`;
+        break;
+      case "linkedin":
+        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${certificateLink}&title=Certificate&summary=Check out this amazing certificate!`;
+        break;
+      default:
+        break;
+    }
+    window.open(shareUrl, "_blank");
+  };
+
   return (
     <div className="certificates-container">
+      {/* Search Bar */}
+      <Form className="mb-4">
+        <Form.Control
+          type="text"
+          placeholder="Search Certificates"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </Form>
+
+      {/* Carousel */}
       <Carousel activeIndex={activeIndex} onSelect={handleSelect} interval={null}>
-        {certificates.map((certificate, index) => (
+        {filteredCertificates.map((certificate, index) => (
           <Carousel.Item key={index}>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -63,10 +102,11 @@ const CertificateCarousel = () => {
                     src={certificate.image}
                     alt={certificate.title}
                     className="certificate-image"
+                    loading="lazy"
                   />
                   <div className="image-overlay">
-                    <Button 
-                      variant="light" 
+                    <Button
+                      variant="light"
                       onClick={() => handleImageClick(certificate)}
                     >
                       View Certificate
@@ -90,8 +130,42 @@ const CertificateCarousel = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+
+      {/* Social Media Share Buttons */}
+      <div className="social-share-buttons mt-4">
+        <Button
+          variant="outline-primary"
+          onClick={() => shareOnSocialMedia("instagram", certificates[activeIndex].link)}
+          className="social-button"
+        >
+          <FaInstagram className="social-icon" />
+        </Button>
+        <Button
+          variant="outline-primary"
+          onClick={() => shareOnSocialMedia("tiktok", certificates[activeIndex].link)}
+          className="social-button"
+        >
+          <FaTiktok className="social-icon" />
+        </Button>
+        <Button
+          variant="outline-primary"
+          onClick={() => shareOnSocialMedia("facebook", certificates[activeIndex].link)}
+          className="social-button"
+        >
+          <FaFacebook className="social-icon" />
+        </Button>
+        <Button
+          variant="outline-primary"
+          onClick={() => shareOnSocialMedia("linkedin", certificates[activeIndex].link)}
+          className="social-button"
+        >
+          <FaLinkedin className="social-icon" />
+        </Button>
+      </div>
+
+      {/* Custom Indicators */}
       <div className="carousel-indicators custom">
-        {certificates.map((_, index) => (
+        {filteredCertificates.map((_, index) => (
           <Button
             key={index}
             variant={index === activeIndex ? "primary" : "outline-primary"}
@@ -103,6 +177,7 @@ const CertificateCarousel = () => {
         ))}
       </div>
 
+      {/* Image Modal */}
       <Modal show={showImageModal} onHide={() => setShowImageModal(false)} size="lg" centered>
         <Modal.Header closeButton>
           <Modal.Title>{selectedCertificate?.title}</Modal.Title>
@@ -112,6 +187,7 @@ const CertificateCarousel = () => {
         </Modal.Body>
       </Modal>
 
+      {/* Details Modal */}
       <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)} size="lg" centered>
         <Modal.Header closeButton>
           <Modal.Title>{selectedCertificate?.title}</Modal.Title>
@@ -145,4 +221,3 @@ const CertificateCarousel = () => {
 };
 
 export default CertificateCarousel;
-

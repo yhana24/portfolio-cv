@@ -3,6 +3,7 @@ import { Card, Button, Carousel, Modal } from "react-bootstrap";
 import { motion } from "framer-motion";
 import project1Image from "../assets/images/project1.JPG";
 import project2Image from "../assets/images/project2.JPG";
+import { FaInstagram, FaFacebookF, FaLinkedinIn, FaTiktok } from "react-icons/fa";
 import "./Projects.css";
 
 const projects = [
@@ -46,6 +47,28 @@ const PortfolioCarousel = () => {
     setShowDetailsModal(true);
   };
 
+  // shareOnSocialMedia function
+  const shareOnSocialMedia = (platform, projectLink) => {
+    let shareUrl = "";
+    switch (platform) {
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${projectLink}`;
+        break;
+      case "instagram":
+        shareUrl = `https://www.instagram.com/sharer/sharer.php?u=${projectLink}`;
+        break;
+      case "tiktok":
+        shareUrl = `https://www.tiktok.com/share?url=${projectLink}`;
+        break;
+      case "linkedin":
+        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${projectLink}&title=Project&summary=Check out this amazing project!`;
+        break;
+      default:
+        break;
+    }
+    window.open(shareUrl, "_blank");
+  };
+
   return (
     <div className="portfolio-carousel-container">
       <Carousel activeIndex={activeIndex} onSelect={handleSelect} interval={null}>
@@ -56,7 +79,7 @@ const PortfolioCarousel = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="project-card">
+              <Card className="project-card shadow-lg hover-scale">
                 <div className="image-container">
                   <Card.Img
                     variant="top"
@@ -90,6 +113,39 @@ const PortfolioCarousel = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+
+      {/* Social Media Share Buttons */}
+      <div className="social-share-buttons">
+        <Button
+          variant="outline-primary"
+          className="social-share-button"
+          onClick={() => shareOnSocialMedia("instagram", selectedProject?.link)}
+        >
+          <FaInstagram size={20} />
+        </Button>
+        <Button
+          variant="outline-primary"
+          className="social-share-button"
+          onClick={() => shareOnSocialMedia("tiktok", selectedProject?.link)}
+        >
+          <FaTiktok size={20} />
+        </Button>
+        <Button
+          variant="outline-primary"
+          className="social-share-button"
+          onClick={() => shareOnSocialMedia("facebook", selectedProject?.link)}
+        >
+          <FaFacebookF size={20} />
+        </Button>
+        <Button
+          variant="outline-primary"
+          className="social-share-button"
+          onClick={() => shareOnSocialMedia("linkedin", selectedProject?.link)}
+        >
+          <FaLinkedinIn size={20} />
+        </Button>
+      </div>
+
       <div className="carousel-indicators custom">
         {projects.map((_, index) => (
           <Button
@@ -103,6 +159,7 @@ const PortfolioCarousel = () => {
         ))}
       </div>
 
+      {/* Image Modal */}
       <Modal show={showImageModal} onHide={() => setShowImageModal(false)} size="lg" centered>
         <Modal.Header closeButton>
           <Modal.Title>{selectedProject?.title}</Modal.Title>
@@ -112,6 +169,7 @@ const PortfolioCarousel = () => {
         </Modal.Body>
       </Modal>
 
+      {/* Details Modal */}
       <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)} size="lg" centered>
         <Modal.Header closeButton>
           <Modal.Title>{selectedProject?.title}</Modal.Title>
@@ -142,4 +200,3 @@ const PortfolioCarousel = () => {
 };
 
 export default PortfolioCarousel;
-
