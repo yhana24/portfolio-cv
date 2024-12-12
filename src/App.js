@@ -20,7 +20,7 @@ const App = () => {
   // Toggle dark mode
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
-    document.body.classList.toggle("dark-mode", darkMode);
+    // document.documentElement.classList.toggle("dark-mode", darkMode); //Removed as per update instruction
   }, [darkMode]);
 
   // Scroll to top button visibility
@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <div className={darkMode ? 'dark-mode' : ''}>
         {/* Helmet for SEO */}
         <Helmet>
           <meta name="description" content="Jeruz Abiera's Portfolio" />
@@ -52,7 +52,7 @@ const App = () => {
         </Helmet>
 
         {/* Navbar */}
-        <PortfolioNavbar />
+        <PortfolioNavbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
         {/* Scroll to Top Button */}
         {visible && (
@@ -155,14 +155,10 @@ const App = () => {
 
         {/* Footer */}
         <Footer />
-
-        {/* Dark Mode Toggle Button */}
-        <button onClick={() => setDarkMode(!darkMode)} className="dark-mode-toggle">
-          Toggle Dark Mode
-        </button>
       </div>
     </Router>
   );
 };
 
 export default App;
+

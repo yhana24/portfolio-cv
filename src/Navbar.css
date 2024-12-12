@@ -1,6 +1,7 @@
 /* Navbar Styling */
 .navbar {
-  background-color: #333;
+  background-color: var(--navbar-bg);
+  color: var(--navbar-color);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
   position: fixed;
@@ -11,18 +12,18 @@
 }
 
 .navbar .navbar-brand {
-  color: #fff;
+  color: var(--heading-color);
   font-size: 1.8rem;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
 .navbar .navbar-brand:hover {
-  color: #61dafb;
+  color: var(--link-color);
 }
 
 .navbar .nav-link {
-  color: white;
+  color: var(--navbar-color);
   margin-left: 15px;
   font-size: 1.1rem;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -30,16 +31,16 @@
 }
 
 .navbar .nav-link:hover {
-  color: #61dafb;
+  color: var(--link-color);
   transform: scale(1.1);
 }
 
 .navbar .nav-link.active {
-  border-bottom: 2px solid #61dafb;
+  border-bottom: 2px solid var(--link-color);
 }
 
 .navbar-toggler {
-  background-color: #fff;
+  background-color: var(--button-bg);
   border: none;
   outline: none;
   transition: transform 0.3s ease;
@@ -68,3 +69,4 @@
 body {
   padding-top: 70px; /* Matches the navbar height */
 }
+

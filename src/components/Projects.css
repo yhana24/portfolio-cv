@@ -8,11 +8,14 @@
   margin: 0 auto;
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--section-bg);
+  color: var(--text-color);
 }
 
 .project-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .image-container {
@@ -58,6 +61,7 @@
 .carousel-control-prev,
 .carousel-control-next {
   width: 5%;
+  color: var(--text-color);
 }
 
 .carousel-inner {
@@ -70,6 +74,15 @@
   margin-top: 10px;
   padding: 8px 16px;
   font-size: 14px;
+  background-color: var(--button-bg);
+  color: var(--button-color);
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.view-details-button:hover {
+  background-color: var(--button-hover-bg);
 }
 
 @media (min-width: 576px) {
@@ -102,6 +115,8 @@
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  background-color: var(--section-bg);
+  color: var(--text-color);
 }
 
 .certificate-card:hover {
@@ -124,21 +139,18 @@
 .social-media-buttons button {
   background: transparent;
   border: none;
-  color: #333;
+  color: var(--text-color);
 }
 
 .social-media-buttons button:hover {
-  color: #007bff;
-}
-.project-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  color: var(--link-color);
 }
 
 .hover-scale {
   transition: transform 0.3s ease;
 }
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
