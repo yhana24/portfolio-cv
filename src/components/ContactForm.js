@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Checkbox from "./Checkbox";
 import "./ContactForm.css";
 
 const ContactForm = () => {
@@ -8,7 +9,7 @@ const ContactForm = () => {
     email: "",
     subject: "",
     message: "",
-    agreedToPolicy: false, // New state for checkbox
+    agreedToPolicy: false, // Initial checkbox value
   });
 
   const [errors, setErrors] = useState({
@@ -16,7 +17,7 @@ const ContactForm = () => {
     email: "",
     subject: "",
     message: "",
-    agreedToPolicy: "", // Error state for checkbox
+    agreedToPolicy: "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -60,8 +61,6 @@ const ContactForm = () => {
           body: JSON.stringify(formData),
         });
 
-        setIsLoading(false);
-
         if (!response.ok) {
           throw new Error("Failed to send message");
         }
@@ -72,15 +71,16 @@ const ContactForm = () => {
           email: "",
           subject: "",
           message: "",
-          agreedToPolicy: false, // Reset checkbox
+          agreedToPolicy: false,
         });
 
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
       } catch (error) {
-        setIsLoading(false);
         console.error("Error sending message:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -142,48 +142,36 @@ const ContactForm = () => {
         </div>
 
         <div className="form-group">
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              name="agreedToPolicy"
-              checked={formData.agreedToPolicy}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            <span>
-              I agree to the{" "}
-              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-                <em>Privacy Policy</em>
-              </a>{" "}
-              and{" "}
-              <a href="/disclaimer" target="_blank" rel="noopener noreferrer">
-                <em>Disclaimer</em>
-              </a>
-            </span>
-          </label>
+          <Checkbox
+            checked={formData.agreedToPolicy}
+            onChange={handleChange}
+            name="agreedToPolicy"
+          />
           {errors.agreedToPolicy && <p className="error-message">{errors.agreedToPolicy}</p>}
         </div>
 
         <StyledWrapper>
-          <button type="submit" disabled={isLoading}>
-            <div className="svg-wrapper-1">
-              <div className="svg-wrapper">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width={24}
-                  height={24}
-                >
-                  <path fill="none" d="M0 0h24v24H0z" />
-                  <path
-                    fill="currentColor"
-                    d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-                  />
-                </svg>
+          <div className="button-wrapper">
+            <button type="submit" disabled={isLoading || !formData.agreedToPolicy}>
+              <div className="svg-wrapper-1">
+                <div className="svg-wrapper">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width={24}
+                    height={24}
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path
+                      fill="currentColor"
+                      d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <span>{isLoading ? "Sending..." : "Send"}</span>
-          </button>
+              <span>{isLoading ? "Sending..." : "Send"}</span>
+            </button>
+          </div>
         </StyledWrapper>
       </form>
     </div>
@@ -249,6 +237,13 @@ const StyledWrapper = styled.div`
       transform: translateY(-0.1em);
     }
   }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 `;
 
 export default ContactForm;
+
