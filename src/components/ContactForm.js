@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox";
+import emailjs from '@emailjs/browser'; // Import EmailJS library
 import "./ContactForm.css";
 
 const ContactForm = () => {
@@ -51,19 +52,19 @@ const ContactForm = () => {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        const webhookUrl = "https://hook.eu2.make.com/pmmfzwtpulipkoo75liehns2dmtltowt";
-
-        const response = await fetch(webhookUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to send message");
-        }
+        const emailParams = {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        };
+        //WEBHOOKS ONLY
+        await emailjs.send(
+          'service_1abotmp', 
+          'template_sjzo94d', 
+          emailParams, 
+          'Agyd0ozhEXpMoVF22'
+        );
 
         setIsSubmitted(true);
         setFormData({
@@ -78,7 +79,7 @@ const ContactForm = () => {
           setIsSubmitted(false);
         }, 5000);
       } catch (error) {
-        console.error("Error sending message:", error);
+        console.error("Error sending email:", error);
       } finally {
         setIsLoading(false);
       }
@@ -246,4 +247,3 @@ const StyledWrapper = styled.div`
 `;
 
 export default ContactForm;
-
